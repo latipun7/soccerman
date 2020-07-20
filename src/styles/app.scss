@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font: larger/1.7 "Nunito", sans-serif;
+}
+
+body {
+  min-width: 425px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+  margin-bottom: 32px;
+}
+
+footer .footer-nav li,
+footer .footer-nav li a {
+  display: block;
+  height: 48px;
+}
+
+@media only screen and (min-width: 993px) {
+  footer .footer-nav li,
+  footer .footer-nav li a {
+    height: 32px;
+  }
+}

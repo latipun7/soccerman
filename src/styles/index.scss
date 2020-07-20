@@ -1,0 +1,12 @@
+@import "../../node_modules/materialize-css/sass/materialize.scss";
+
+// MaterializeCSS Override
+.container {
+  height: 100%;
+}
+
+.brand-logo {
+  height: 100%;
+}
+
+@import "./app.scss";
