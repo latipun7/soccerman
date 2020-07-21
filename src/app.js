@@ -13,8 +13,8 @@ function loadPage(pathName) {
     .then((html) => {
       element.innerHTML = html;
     })
-    .catch((e) => {
-      element.innerHTML = `<pre>${e}</pre>`;
+    .catch((error) => {
+      element.innerHTML = `<pre>${error}</pre>`;
     });
 }
 
