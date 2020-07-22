@@ -1,58 +1,9 @@
-let page = window.location.hash.substr(2);
-let state;
+import { loadNavListItems, loadPage } from './app/navigation';
+import { initialState, page } from './lib/page-state';
 
-if (page === '') page = 'home';
-
-const initialState = page;
-
-function loadPage(pathName) {
-  const element = document.querySelector('#body-content');
-
-  fetch(`pages/${pathName}.html`)
-    .then((response) => response.text())
-    .then((html) => {
-      element.innerHTML = html;
-    })
-    .catch((error) => {
-      element.innerHTML = `<pre>${error}</pre>`;
-    });
-}
-
-function loadNavListItems() {
-  fetch('../nav-items.html')
-    .then((response) => response.text())
-    .then((html) => {
-      const elements = document.querySelectorAll(
-        '.topnav, .sidenav, .footer-nav'
-      );
-
-      elements.forEach((element) => {
-        const listItem = element;
-        listItem.innerHTML = html;
-      });
-
-      const footerNav = document.querySelectorAll('.footer-nav li a');
-      footerNav.forEach((link) => {
-        link.classList.remove('waves-effect');
-        link.classList.add('grey-text');
-        link.classList.add('text-lighten-3');
-      });
-    });
-
-  const links = document.querySelectorAll('.topnav, .sidenav, .footer-nav');
-  links.forEach((link) => {
-    link.addEventListener('click', (event) => {
-      event.preventDefault();
-
-      const sidenav = document.querySelector('.sidenav');
-      M.Sidenav.getInstance(sidenav).close();
-
-      page = event.target.getAttribute('href').substr(2);
-      window.history.pushState(page, '', `#/${page}`);
-      loadPage(page);
-    });
-  });
-}
+const dateYear = new Date().getFullYear();
+const footerYearElement = document.getElementById('footer-date');
+footerYearElement.innerText = dateYear;
 
 document.addEventListener('DOMContentLoaded', () => {
   const elements = document.querySelectorAll('.sidenav');
@@ -60,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   loadNavListItems();
 
   window.onpopstate = (event) => {
+    let state;
+
     if (event.state) {
       state = event.state;
     } else {
@@ -69,9 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loadPage(state);
   };
 
-  loadPage(page);
+  const currentPage = page();
+  loadPage(currentPage);
 });
-
-const dateYear = new Date().getFullYear();
-const footerYearElement = document.getElementById('footer-date');
-footerYearElement.innerText = dateYear;
