@@ -131,7 +131,10 @@ const config = (env) => {
                           ],
                           defaultExtractor: (content) =>
                             content.match(/[\w-/:]+(?<!:)/g) || [],
-                          whitelistPatterns: [/^::-webkit-scrollbar/],
+                          whitelistPatterns: [
+                            /^::-webkit-scrollbar/,
+                            /nav-overlay$/,
+                          ],
                         }),
                       ]
                     : []),
