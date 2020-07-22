@@ -20,22 +20,23 @@ const loading = `
 `;
 
 const EPLStandings = async () => {
-  cardsHTML = loading;
   const element = document.getElementById('standings');
+
+  cardsHTML = loading;
   element.innerHTML = cardsHTML;
 
   try {
     const result = await getPLStandings();
     const PLStandings = result.standings[0].table;
-    cardsHTML = '';
 
+    cardsHTML = '';
     PLStandings.forEach((standing) => {
       cardsHTML += `
       <div class="col s12 m6 l4">
         <div class="card">
           <a href="/#/team?id=${standing.team.id}">
             <div class="card-image waves-effect waves-block waves-light">
-              <img src="${standing.team.crestUrl}" alt="${standing.team.name}" height="294px" />
+              <img src="${standing.team.crestUrl}" alt="${standing.team.name}" />
             </div>
           </a>
           <div class="card-content">

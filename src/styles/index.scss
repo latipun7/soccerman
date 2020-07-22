@@ -9,4 +9,9 @@
   height: 100%;
 }
 
+.card .card-image img {
+  height: 294px;
+  object-fit: contain;
+}
+
 @import "./app.scss";

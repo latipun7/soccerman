@@ -1,13 +1,15 @@
 import { loadNavListItems, loadPage } from './app/navigation';
 import { initialState, page } from './lib/page-state';
 
-const dateYear = new Date().getFullYear();
-const footerYearElement = document.getElementById('footer-date');
-footerYearElement.innerText = dateYear;
-
 document.addEventListener('DOMContentLoaded', () => {
-  const elements = document.querySelectorAll('.sidenav');
-  M.Sidenav.init(elements);
+  const sidenavElement = document.querySelectorAll('.sidenav');
+  const footerYearElement = document.getElementById('footer-date');
+  const dateYear = new Date().getFullYear();
+  const currentPage = page();
+
+  footerYearElement.innerText = dateYear;
+
+  M.Sidenav.init(sidenavElement);
   loadNavListItems();
 
   window.onpopstate = (event) => {
@@ -22,6 +24,5 @@ document.addEventListener('DOMContentLoaded', () => {
     loadPage(state);
   };
 
-  const currentPage = page();
   loadPage(currentPage);
 });
