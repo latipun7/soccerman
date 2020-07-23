@@ -81,7 +81,7 @@ const config = (env) => {
     mode: env.mode,
     entry: {
       materialize: './src/materialize.js',
-      index: './src/app.js',
+      index: './src/index.js',
     },
     output: { path: buildDir, ...(isDev ? dev.output : prod.output) },
     module: {

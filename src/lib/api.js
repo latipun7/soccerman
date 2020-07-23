@@ -5,7 +5,7 @@ const options = {
   headers: { 'X-Auth-Token': '6a66976fba4c43568ac32af323de8814' },
 };
 
-const getPLMatches = async () => {
+async function getPLMatches() {
   try {
     const { data } = await axios.get(
       `${BASE_URL}/competitions/PL/matches`,
@@ -15,9 +15,9 @@ const getPLMatches = async () => {
   } catch (error) {
     return error;
   }
-};
+}
 
-const getPLStandings = async () => {
+async function getPLStandings() {
   try {
     const { data } = await axios.get(
       `${BASE_URL}/competitions/PL/standings`,
@@ -27,6 +27,15 @@ const getPLStandings = async () => {
   } catch (error) {
     return error;
   }
-};
+}
 
-export { getPLMatches, getPLStandings };
+async function getTeamByID(id) {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/teams/${id}`, options);
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export { getPLMatches, getPLStandings, getTeamByID };
