@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { page } from '../lib/page-state';
+import { page } from '../lib';
 import EPLStandings from './PL-cards';
 
 const options = { responseType: 'text' };

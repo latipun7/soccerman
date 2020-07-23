@@ -1,5 +1,5 @@
 import { loadNavListItems, loadPage } from './app/navigation';
-import { initialState, page } from './lib/page-state';
+import { initialState, page } from './lib';
 
 document.addEventListener('DOMContentLoaded', () => {
   const sidenavElement = document.querySelectorAll('.sidenav');
