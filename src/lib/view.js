@@ -36,7 +36,7 @@ async function loadPageContents(name, params) {
   currentPage = pagesByName[name];
 
   if (currentPage) {
-    element.innerHTML = currentPage.view(currentPage.model, loadingHTML);
+    element.innerHTML = currentPage.view({}, loadingHTML);
     await currentPage.controller(currentPage.model, params);
   }
 

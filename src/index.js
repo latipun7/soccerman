@@ -2,6 +2,7 @@ import { footerYear, initSideNav } from './app';
 import { addRoute, onHashChange } from './lib/routes';
 
 import './pages/home';
+import './pages/team';
 
 addRoute('home', /^#\/home\/?$/);
 addRoute('team', /^#\/team\/\d+\/?$/);

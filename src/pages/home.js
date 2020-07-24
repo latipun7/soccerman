@@ -1,4 +1,5 @@
 import { getPLStandings } from '../lib/api';
+import isEmpty from '../lib/utils';
 import { addPageContents } from '../lib/view';
 
 addPageContents({
@@ -12,7 +13,7 @@ addPageContents({
   view: (model, loading = '') => {
     let standingsHTML;
 
-    if (model.standings.length === 0) {
+    if (isEmpty(model.standings)) {
       standingsHTML = '';
     } else {
       standingsHTML = model.standings.reduce(

@@ -16,7 +16,7 @@ async function onHashChange() {
   const route = routes.filter((routeArr) => hash.match(routeArr.urlPattern))[0];
 
   if (route) {
-    const params = 64;
+    const params = /\d+/.exec(hash);
     await loadPageContents(route.name, params);
   } else {
     await loadPageContents();
