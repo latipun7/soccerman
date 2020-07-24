@@ -11,7 +11,7 @@ import TerserPlugin from 'terser-webpack-plugin';
 import { buildDir, globalStyleDir, publicDir, srcDir } from './configs/paths';
 
 const dev = {
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   output: {
     filename: 'scripts/[name].js',
     chunkFilename: 'scripts/[name].[id].js',
@@ -31,7 +31,7 @@ const dev = {
 };
 
 const prod = {
-  devtool: 'hidden-source-map',
+  devtool: 'nosources-source-map',
   output: {
     filename: 'scripts/[name].[contenthash:8].js',
     chunkFilename: 'scripts/[name].[id].[contenthash:8].js',
