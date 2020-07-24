@@ -9,9 +9,21 @@
   height: 100%;
 }
 
-.card .card-image img {
-  height: 294px;
-  object-fit: contain;
+.card {
+  background-color: inherit;
+
+  .card-image img {
+    height: 294px;
+    object-fit: contain;
+  }
+}
+
+.sidenav {
+  background-color: #36393f;
+
+  li > a {
+    color: #e8e6e3;
+  }
 }
 
 @import "./app.scss";
