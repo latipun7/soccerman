@@ -10,8 +10,15 @@ addRoute('dashboard', /^#\/dashboard\/?$/);
 
 window.addEventListener('hashchange', onHashChange);
 
+// TODO: Optimize async/await
 window.addEventListener('DOMContentLoaded', async () => {
   await initSideNav();
   footerYear();
   onHashChange();
 });
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js');
+  });
+}

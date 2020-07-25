@@ -7,16 +7,16 @@ const root = path.resolve(__dirname, '..');
  * @param {Array} relativePath - path relative to root directory
  * @returns {String} resolved path string
  */
-const resolveDir = (...relativePath) => path.resolve(root, ...relativePath);
+const resolvePath = (...relativePath) => path.resolve(root, ...relativePath);
 
 // Resolved paths ...
-const buildDir = resolveDir('dist');
-const configsDir = resolveDir('configs');
-const globalStyleDir = resolveDir('src/styles');
-const libDir = resolveDir('src', 'lib');
-const publicDir = resolveDir('public');
-const rootDir = resolveDir('.');
-const srcDir = resolveDir('src');
+const buildDir = resolvePath('dist');
+const configsDir = resolvePath('configs');
+const globalStyleDir = resolvePath('src', 'styles');
+const libDir = resolvePath('src', 'lib');
+const publicDir = resolvePath('public');
+const rootDir = resolvePath('.');
+const srcDir = resolvePath('src');
 
 export {
   buildDir,
@@ -26,4 +26,5 @@ export {
   publicDir,
   rootDir,
   srcDir,
+  resolvePath,
 };

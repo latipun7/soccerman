@@ -33,7 +33,7 @@
     "css-loader": "^3.6.0",
     "cssnano": "^4.1.10",
     "eslint": "^7.5.0",
-    "eslint-config-ruppy-node": "^1.1.1",
+    "eslint-config-ruppy-node": "^1.1.2",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
@@ -49,7 +49,7 @@
     "resolve-url-loader": "^3.1.1",
     "sass-loader": "^9.0.2",
     "terser-webpack-plugin": "^3.0.7",
-    "webpack": "^4.43.0",
+    "webpack": "^4.44.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },

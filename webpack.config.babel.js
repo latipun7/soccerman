@@ -12,30 +12,21 @@ import { buildDir, globalStyleDir, publicDir, srcDir } from './configs/paths';
 
 const dev = {
   devtool: 'source-map',
-  output: {
-    filename: 'scripts/[name].js',
-    chunkFilename: 'scripts/[name].[id].js',
-  },
   devServer: {
     open: true,
     hot: true,
     overlay: { errors: true, warnings: true },
     writeToDisk: true,
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'styles/[name].css',
-      chunkFilename: 'styles/[name].[id].css',
-    }),
-  ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 };
 
 const prod = {
   devtool: 'nosources-source-map',
-  output: {
-    filename: 'scripts/[name].[contenthash:8].js',
-    chunkFilename: 'scripts/[name].[id].[contenthash:8].js',
-  },
   optimization: {
     minimizer: [
       new TerserPlugin({ cache: true, sourceMap: true }),
@@ -43,14 +34,9 @@ const prod = {
     ],
     splitChunks: {
       chunks: 'all',
+      enforceSizeThreshold: 50000,
     },
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'styles/[name].[contenthash:8].css',
-      chunkFilename: 'styles/[name].[id].[contenthash:8].css',
-    }),
-  ],
   module: {
     rules: [
       {
@@ -83,17 +69,12 @@ const config = (env) => {
       materialize: './src/materialize.js',
       index: './src/index.js',
     },
-    output: { path: buildDir, ...(isDev ? dev.output : prod.output) },
+    output: {
+      path: buildDir,
+      filename: 'scripts/[name].js',
+    },
     module: {
       rules: [
-        {
-          test: /\.(png|svg|jpe?g|gif)$/,
-          loader: 'file-loader',
-          options: {
-            outputPath: 'assets/',
-            name: '[contenthash:16].[ext]',
-          },
-        },
         {
           test: /\.s[ac]ss$/,
           include: [globalStyleDir],
@@ -173,7 +154,9 @@ const config = (env) => {
         scriptLoading: 'defer',
         cache: false,
       }),
-      ...(isDev ? dev.plugins : prod.plugins),
+      new MiniCssExtractPlugin({
+        filename: 'styles/[name].css',
+      }),
     ],
   };
 };
