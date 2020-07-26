@@ -116,6 +116,7 @@ const config = (env) => {
                         purgeCss({
                           content: [
                             `${srcDir}/**/*.js`,
+                            `${srcDir}/**/*.html`,
                             `${publicDir}/**/*.html`,
                           ],
                           defaultExtractor: (content) =>
