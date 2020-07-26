@@ -26,6 +26,112 @@ main {
   flex-flow: column nowrap;
 }
 
+table.left-heading {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: block;
+  position: relative;
+  margin-bottom: 43px;
+
+  caption {
+    display: block;
+    width: 100%;
+    font-size: 1.5rem;
+  }
+
+  &.highlight {
+    & > tbody > tr {
+      transition: none;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    @media (max-width: 993px) {
+      td:nth-child(odd) {
+        background-color: #3a3e44;
+      }
+    }
+
+    @media (min-width: 993px) {
+      td {
+        transition: background-color 0.25s ease;
+        &:hover {
+          background-color: #3a3e44;
+        }
+      }
+    }
+  }
+
+  td:empty:before {
+    content: "\00a0";
+  }
+
+  th,
+  td {
+    margin: 0;
+    vertical-align: top;
+  }
+
+  th {
+    text-align: left;
+  }
+
+  thead {
+    display: block;
+    float: left;
+
+    tr {
+      display: block;
+      padding: 0 10px 0 0;
+
+      th::before {
+        content: "\00a0";
+      }
+    }
+  }
+
+  tbody {
+    display: block;
+    width: auto;
+    position: relative;
+    overflow-x: auto;
+    white-space: nowrap;
+
+    tr {
+      display: inline-block;
+      vertical-align: top;
+      padding: 0 0 0 10px;
+
+      &:only-child {
+        width: 100%;
+      }
+    }
+  }
+
+  th {
+    display: block;
+    text-align: right;
+  }
+
+  td {
+    display: block;
+    min-height: 1.25em;
+    text-align: left;
+  }
+
+  tr {
+    border-bottom: none;
+    padding: 0 10px;
+  }
+
+  thead {
+    border: 0;
+    border-right: 1px solid $table-border-color;
+  }
+}
+
 footer .footer-nav li,
 footer .footer-nav li a {
   display: block;
@@ -38,6 +144,8 @@ footer .footer-nav li a {
   height: 56px;
   margin-top: 15px;
   z-index: 997;
+  width: 200px;
+  margin-left: auto;
 
   // materializeCSS class
   .btn {
@@ -60,9 +168,15 @@ footer .footer-nav li a {
   flex-flow: column nowrap;
 }
 
-@media only screen and (min-width: 993px) {
+@media (min-width: 993px) {
   footer .footer-nav li,
   footer .footer-nav li a {
     height: 32px;
+  }
+}
+
+@media (max-width: 450px) {
+  h3 {
+    font-size: 2rem;
   }
 }

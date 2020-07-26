@@ -6,58 +6,53 @@
       </div>
     </a>
     <div class="card-content">
-      <span class="card-title truncate">{{name}}</span>
-      <p>
-        Website:
-        <a href="{{website}}" target="_blank" rel="noreferrer noopener">
-          {{website}}
-        </a>
-      </p>
-      <p>
-        ipsum dolor sit amet consectetur adipisicing elit. Saepe atque, delectus
-        temporibus, cum neque aliquid beatae ea in odit odio quod mollitia autem
-        labore. Recusandae modi iste inventore obcaecati sapiente!
-      </p>
-      <p>
-        ipsum dolor sit amet consectetur adipisicing elit. Saepe atque, delectus
-        temporibus, cum neque aliquid beatae ea in odit odio quod mollitia autem
-        labore. Recusandae modi iste inventore obcaecati sapiente!
-      </p>
-      <p>
-        ipsum dolor sit amet consectetur adipisicing elit. Saepe atque, delectus
-        temporibus, cum neque aliquid beatae ea in odit odio quod mollitia autem
-        labore. Recusandae modi iste inventore obcaecati sapiente!
-      </p>
-      <p>
-        ipsum dolor sit amet consectetur adipisicing elit. Saepe atque, delectus
-        temporibus, cum neque aliquid beatae ea in odit odio quod mollitia autem
-        labore. Recusandae modi iste inventore obcaecati sapiente!
-      </p>
-      <p>
-        ipsum dolor sit amet consectetur adipisicing elit. Saepe atque, delectus
-        temporibus, cum neque aliquid beatae ea in odit odio quod mollitia autem
-        labore. Recusandae modi iste inventore obcaecati sapiente!
-      </p>
-      <p>
-        ipsum dolor sit amet consectetur adipisicing elit. Saepe atque, delectus
-        temporibus, cum neque aliquid beatae ea in odit odio quod mollitia autem
-        labore. Recusandae modi iste inventore obcaecati sapiente!
-      </p>
-      <p>
-        ipsum dolor sit amet consectetur adipisicing elit. Saepe atque, delectus
-        temporibus, cum neque aliquid beatae ea in odit odio quod mollitia autem
-        labore. Recusandae modi iste inventore obcaecati sapiente!
-      </p>
-      <p>
-        ipsum dolor sit amet consectetur adipisicing elit. Saepe atque, delectus
-        temporibus, cum neque aliquid beatae ea in odit odio quod mollitia autem
-        labore. Recusandae modi iste inventore obcaecati sapiente!
-      </p>
-      <p>
-        ipsum dolor sit amet consectetur adipisicing elit. Saepe atque, delectus
-        temporibus, cum neque aliquid beatae ea in odit odio quod mollitia autem
-        labore. Recusandae modi iste inventore obcaecati sapiente!
-      </p>
+      <table class="highlight left-heading">
+        <caption class="center">
+          {{name}} ({{tla}})
+        </caption>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Website</th>
+            <th>E-mail</th>
+            <th>Founded</th>
+            <th>Club Colors</th>
+            <th>Venue Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{country}}</td>
+            <td>{{address}}</td>
+            <td>{{phone}}</td>
+            <td>
+              <a href="{{website}}" target="_blank" rel="noopener noreferrer">
+                {{website}}
+              </a>
+            </td>
+            <td>
+              <a href="mailto:{{email}}">
+                {{email}}
+              </a>
+            </td>
+            <td>
+              {{founded}}
+            </td>
+            <td>
+              {{clubColors}}
+            </td>
+            <td>
+              {{venue}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ul class="collection with-header center">
+        <li class="collection-header"><h4>Upcoming Matches</h4></li>
+        {{teamMatches}}
+      </ul>
     </div>
   </div>
 </div>
