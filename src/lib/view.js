@@ -1,24 +1,15 @@
-let currentPage;
+import loading from '../pages/templates/loading.html';
+import notFound from '../pages/templates/404.html';
 
-const element = document.querySelector('#body-content');
+let currentPage;
 const pagesByName = {};
-const loadingHTML = `
-<div class="col s12 center">
-  <div class="preloader-wrapper big active">
-    <div class="spinner-layer spinner-green-only">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div>
-      <div class="gap-patch">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
+
+const mainOutside = document.querySelector('#root-content');
+const loadingHTML = loading;
+
+const mainContents = document.createElement('div');
+mainContents.classList.add('container');
+mainContents.id = 'body-content';
 
 function addPageContents(contents) {
   pagesByName[contents.name] = contents;
@@ -26,17 +17,24 @@ function addPageContents(contents) {
 
 function updateView() {
   if (currentPage) {
-    element.innerHTML = currentPage.view(currentPage.model);
+    const view = currentPage.view(currentPage.model);
+
+    mainContents.innerHTML = view.contents;
+    if (view.outside) mainOutside.innerHTML += view.outside;
   } else {
-    element.innerHTML = '<h3>Page Not Found</h3>';
+    mainContents.innerHTML = notFound;
   }
 }
 
 async function loadPageContents(name, params) {
   currentPage = pagesByName[name];
+  mainOutside.innerHTML = '';
+  mainOutside.appendChild(mainContents);
 
   if (currentPage) {
-    element.innerHTML = currentPage.view({}, loadingHTML);
+    const view = currentPage.view({}, loadingHTML);
+
+    mainContents.innerHTML = view.contents;
     await currentPage.controller(currentPage.model, params);
   }
 

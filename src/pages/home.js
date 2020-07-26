@@ -1,6 +1,8 @@
 import { getPLStandings } from '../lib/api';
-import isEmpty from '../lib/utils';
+import { isEmpty, template } from '../lib/utils';
 import { addPageContents } from '../lib/view';
+import html from './templates/home.html';
+import container from './templates/page-container.html';
 
 addPageContents({
   name: 'home',
@@ -19,26 +21,22 @@ addPageContents({
       standingsHTML = model.standings.reduce(
         (prev, current) => `
           ${prev}
-          <div class="col s12 m6 l4">
-            <div class="card">
-              <a href="/#/team/${current.team.id}">
-                <div class="card-image waves-effect waves-block waves-light">
-                  <img src="${current.team.crestUrl}" alt="${current.team.name}" />
-                </div>
-              </a>
-              <div class="card-content">
-                <span class="card-title truncate">${current.team.name}</span>
-                <p>${current.points} pts</p>
-              </div>
-            </div>
-          </div>
+          ${template(html, {
+            id: current.team.id,
+            crestUrl: current.team.crestUrl,
+            name: current.team.name,
+            points: current.points,
+          })}
         `,
         ''
       );
     }
-    return `
-      <h3 class="center">Premiere League</h3>
-      <div class="row">${loading}${standingsHTML}</div>
-    `;
+
+    const containerHTML = template(container, {
+      title: 'Premiere League',
+      content: loading || standingsHTML,
+    });
+
+    return { contents: `${containerHTML}`, outside: '' };
   },
 });

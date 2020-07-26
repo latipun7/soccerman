@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soccerman-v1.1';
+const CACHE_NAME = 'soccerman-v1.0';
 const urlToCache = [
   '/',
   '/index.html',

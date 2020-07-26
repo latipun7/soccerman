@@ -76,6 +76,14 @@ const config = (env) => {
     module: {
       rules: [
         {
+          test: /\.html$/,
+          loader: 'html-loader',
+          options: {
+            attributes: false,
+            esModule: true,
+          },
+        },
+        {
           test: /\.s[ac]ss$/,
           include: [globalStyleDir],
           use: [

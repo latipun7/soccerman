@@ -5,7 +5,9 @@
 }
 
 html {
-  font: larger/1.7 "Nunito", sans-serif;
+  font: larger/1.7 "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: #e8e6e3;
 }
 
@@ -13,19 +15,49 @@ body {
   min-width: 425px;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
   background: #36393f;
 }
 
 main {
   flex: 1 0 auto;
   margin-bottom: 32px;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 footer .footer-nav li,
 footer .footer-nav li a {
   display: block;
   height: 48px;
+}
+
+.sticky-action-btn {
+  position: sticky;
+  bottom: 23px;
+  height: 56px;
+  margin-top: 15px;
+  z-index: 997;
+
+  // materializeCSS class
+  .btn {
+    position: absolute;
+    right: 23px;
+    border-radius: 30px;
+  }
+}
+
+#body-content {
+  flex: 1 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+#not-found-page {
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-flow: column nowrap;
 }
 
 @media only screen and (min-width: 993px) {
