@@ -1,5 +1,8 @@
 <div class="sticky-action-btn">
-  <a class="waves-effect waves-light btn-large btn">
-    <i class="material-icons right">bookmark</i>Follow
-  </a>
+  <button
+    {{dataset}}
+    class="waves-effect waves-light btn-large btn {{btnColor}}"
+  >
+    <i class="material-icons right">{{btnIcon}}</i>{{btnCaption}}
+  </button>
 </div>

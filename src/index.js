@@ -1,6 +1,6 @@
 import { footerYear, initSideNav } from './app';
 import { addRoute, onHashChange } from './lib/routes';
-
+import './pages/dashboard';
 import './pages/home';
 import './pages/team';
 

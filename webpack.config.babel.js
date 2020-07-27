@@ -124,6 +124,8 @@ const config = (env) => {
                           whitelistPatterns: [
                             /^::-webkit-scrollbar/,
                             /nav-overlay$/,
+                            /toast/,
+                            /modal/,
                           ],
                         }),
                       ]

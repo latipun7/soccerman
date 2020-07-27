@@ -15,18 +15,30 @@ function addPageContents(contents) {
   pagesByName[contents.name] = contents;
 }
 
-function updateView() {
+async function updateView(updateModel = false, params) {
   if (currentPage) {
+    const { events } = currentPage;
+
+    if (updateModel) {
+      mainOutside.innerHTML = '';
+      mainOutside.appendChild(mainContents);
+      await currentPage.controller(currentPage.model, params);
+    }
+
     const view = currentPage.view(currentPage.model);
 
     mainContents.innerHTML = view.contents;
     if (view.outside) mainOutside.innerHTML += view.outside;
+    if (events) events(currentPage.model).init();
   } else {
     mainContents.innerHTML = notFound;
   }
 }
 
 async function loadPageContents(name, params) {
+  if (currentPage && currentPage.events)
+    currentPage.events(currentPage.model).teardown();
+
   currentPage = pagesByName[name];
   mainOutside.innerHTML = '';
   mainOutside.appendChild(mainContents);
@@ -38,7 +50,7 @@ async function loadPageContents(name, params) {
     await currentPage.controller(currentPage.model, params);
   }
 
-  updateView();
+  await updateView();
 }
 
 export { addPageContents, updateView, loadPageContents };
