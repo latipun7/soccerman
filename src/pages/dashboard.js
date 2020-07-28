@@ -5,6 +5,10 @@ import { getTeamByID } from '../lib/api';
 import { deleteFromStore, getFromStore } from '../lib/idb-utils';
 import { isEmpty, template } from '../lib/utils';
 import { addPageContents, updateView } from '../lib/view';
+import {
+  initNotificationPermission,
+  subscribePushNotification,
+} from '../app/push-notifications';
 
 addPageContents({
   name: 'dashboard',
@@ -16,13 +20,23 @@ addPageContents({
     self.following = result;
   },
   view: (model, loading) => {
-    let dashboardHTML;
+    let settingsHTML;
+    let followedTeamList;
+
+    if ('Notification' in window && 'PushManager' in window) {
+      settingsHTML = template(container, {
+        title: 'Settings',
+        content: settings,
+      });
+    } else {
+      settingsHTML = '';
+    }
 
     if (isEmpty(model.following)) {
-      dashboardHTML =
+      followedTeamList =
         '<h5 class="center">You don\'t have followed teams 🙅🏻‍♀️</h5>';
     } else {
-      dashboardHTML = model.following.reduce(
+      followedTeamList = model.following.reduce(
         (prev, current) => `
           ${prev}
           ${template(html, {
@@ -38,20 +52,17 @@ addPageContents({
 
     const followedTeamsHTML = template(container, {
       title: 'Followed Teams',
-      content: loading || dashboardHTML,
-    });
-
-    const settingsHTML = template(container, {
-      title: 'Settings',
-      content: settings,
+      content: loading || followedTeamList,
     });
 
     return { contents: `${settingsHTML}${followedTeamsHTML}` };
   },
   events: () => {
-    const buttons = document.querySelectorAll('.btn-follow');
+    const unfollowButtons = document.querySelectorAll('.btn-follow');
+    const pushCheckbox = document.querySelector('input[id="push-settings"]');
+    const isPushSupported = 'Notification' in window && 'PushManager' in window;
 
-    const onClick = async (event) => {
+    const onClickUnfollow = async (event) => {
       try {
         const { id } = event.currentTarget.dataset;
         const result = await getTeamByID(id);
@@ -70,16 +81,63 @@ addPageContents({
       }
     };
 
+    const initSwitchState = async () => {
+      const userConsent = await initNotificationPermission();
+
+      if (userConsent === 'granted') {
+        pushCheckbox.checked = true;
+      } else {
+        pushCheckbox.checked = false;
+      }
+    };
+
+    const onChangePush = async () => {
+      const userConsent = await initNotificationPermission();
+
+      if (userConsent === 'granted') {
+        if (pushCheckbox.checked) {
+          subscribePushNotification();
+        } else {
+          pushCheckbox.checked = true;
+          M.toast({
+            html: 'Change consent in the browser settings. 😢',
+            classes: 'amber darken-3',
+          });
+        }
+      } else if (userConsent === 'denied') {
+        pushCheckbox.checked = false;
+        M.toast({
+          html: "I'm not allowed to send push notifications. 😢",
+          classes: 'red',
+        });
+      } else {
+        pushCheckbox.checked = false;
+        M.toast({
+          html: 'You need to click allow to show notifications ⚠',
+          classes: 'amber darken-3',
+        });
+      }
+    };
+
     const init = () => {
-      buttons.forEach((button) => {
-        button.addEventListener('click', onClick);
+      unfollowButtons.forEach((button) => {
+        button.addEventListener('click', onClickUnfollow);
       });
+
+      if (isPushSupported) {
+        initSwitchState();
+        pushCheckbox.addEventListener('change', onChangePush);
+      }
     };
 
     const teardown = () => {
-      buttons.forEach((button) => {
-        button.removeEventListener('click', onClick);
+      unfollowButtons.forEach((button) => {
+        button.removeEventListener('click', onClickUnfollow);
       });
+
+      if (isPushSupported) {
+        pushCheckbox.removeEventListener('change', () => onChangePush);
+      }
     };
 
     return { init, teardown };

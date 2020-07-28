@@ -3,6 +3,7 @@
   "short_name": "Soccerman",
   "description": "Soccerman: I'm your soccer informant ⚽🎩",
   "categories": ["sports"],
+  "gcm_sender_id": "637560516290",
   "icons": [
     {
       "src": "/assets/android-chrome-192x192.png",

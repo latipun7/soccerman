@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soccerman-v1.3';
+const CACHE_NAME = 'soccerman-v1.7';
 const urlToCache = [
   '/',
   '/index.html',
@@ -33,21 +33,32 @@ async function cleanOldCache() {
   return Promise.all(oldCaches.map((oldCache) => caches.delete(oldCache)));
 }
 
-self.addEventListener('install', (event) => {
-  self.skipWaiting();
-  event.waitUntil(installSW());
-});
+function receivePushNotifications(event) {
+  const { body, data, image, tag, title } = event.data.json();
 
-self.addEventListener('activate', (event) => {
-  self.clients.claim();
-  self.skipWaiting();
-  event.waitUntil(cleanOldCache());
-});
+  const options = {
+    body,
+    data,
+    vibrate: [200, 100, 200],
+    tag,
+    renotify: true,
+    image,
+    icon: '/assets/android-chrome-192x192.png',
+    badge: '/assets/android-chrome-192x192.png',
+  };
 
-// TODO: SW strategy
-// - Cache then network strategy (https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook#cache-then-network)
-// - catch all uncaught error
-self.addEventListener('fetch', (event) => {
+  event.waitUntil(self.registration.showNotification(title, options));
+}
+
+function openPushNotifications(event) {
+  event.notification.close();
+
+  if (event.notification.data) {
+    event.waitUntil(clients.openWindow(event.notification.data));
+  }
+}
+
+function staleWhileRevalidate(event) {
   const reqURL = event.request.url;
   const urls = urlToCache.filter((url) => url !== '/').join('|');
   const urlsRegex = new RegExp(`(${urls})$`);
@@ -74,4 +85,21 @@ self.addEventListener('fetch', (event) => {
       )
     );
   }
+}
+
+self.addEventListener('install', (event) => {
+  self.skipWaiting();
+  event.waitUntil(installSW());
 });
+
+self.addEventListener('activate', (event) => {
+  self.clients.claim();
+  self.skipWaiting();
+  event.waitUntil(cleanOldCache());
+});
+
+self.addEventListener('fetch', staleWhileRevalidate);
+
+self.addEventListener('push', receivePushNotifications);
+
+self.addEventListener('notificationclick', openPushNotifications);
