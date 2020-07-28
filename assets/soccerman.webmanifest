@@ -3,6 +3,7 @@
   "short_name": "Soccerman",
   "description": "Soccerman: I'm your soccer informant ⚽🎩",
   "categories": ["sports"],
+  "gcm_sender_id": "637560516290",
   "icons": [
     {
       "src": "/assets/android-chrome-192x192.png",
@@ -13,6 +14,12 @@
       "src": "/assets/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/assets/maskable_soccerman_icon.png",
+      "sizes": "711x711",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "theme_color": "#009688",
