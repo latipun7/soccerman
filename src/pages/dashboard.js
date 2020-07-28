@@ -2,7 +2,7 @@ import html from './templates/dashboard.html';
 import container from './templates/page-container.html';
 import settings from './templates/settings.html';
 import { getTeamByID } from '../lib/api';
-import { deleteFromStore, getFromStore } from '../lib/indexedDB';
+import { deleteFromStore, getFromStore } from '../lib/idb-utils';
 import { isEmpty, template } from '../lib/utils';
 import { addPageContents, updateView } from '../lib/view';
 

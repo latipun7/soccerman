@@ -9,7 +9,7 @@ import {
   addOrUpdateToStore,
   deleteFromStore,
   getOneFromStore,
-} from '../lib/indexedDB';
+} from '../lib/idb-utils';
 
 addPageContents({
   name: 'team',

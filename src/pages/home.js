@@ -7,7 +7,7 @@ import {
   addOrUpdateToStore,
   deleteFromStore,
   getFromStore,
-} from '../lib/indexedDB';
+} from '../lib/idb-utils';
 
 addPageContents({
   name: 'home',
