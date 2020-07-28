@@ -1,5 +1,20 @@
 import { openDB } from 'idb';
 
+const dbPromise = openDB('keyval-store', 1, {
+  upgrade(db) {
+    db.createObjectStore('keyval');
+  },
+});
+
+const idbKeyVal = {
+  get: async (key) => {
+    return (await dbPromise).get('keyval', key);
+  },
+  set: async (key, val) => {
+    return (await dbPromise).put('keyval', val, key);
+  },
+};
+
 async function openDBStore(database, storeName) {
   try {
     return await openDB(database, 1, {
@@ -58,4 +73,10 @@ async function deleteFromStore(id, database, store) {
   }
 }
 
-export { addOrUpdateToStore, getFromStore, getOneFromStore, deleteFromStore };
+export {
+  idbKeyVal,
+  addOrUpdateToStore,
+  getFromStore,
+  getOneFromStore,
+  deleteFromStore,
+};

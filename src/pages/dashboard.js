@@ -2,7 +2,7 @@ import html from './templates/dashboard.html';
 import container from './templates/page-container.html';
 import settings from './templates/settings.html';
 import { getTeamByID } from '../lib/api';
-import { deleteFromStore, getFromStore } from '../lib/idb-utils';
+import { deleteFromStore, getFromStore, idbKeyVal } from '../lib/idb-utils';
 import { httpsWorkaround, isEmpty, template } from '../lib/utils';
 import { addPageContents, updateView } from '../lib/view';
 import {
@@ -12,12 +12,16 @@ import {
 
 addPageContents({
   name: 'dashboard',
-  model: { following: [] },
+  model: { following: [], isGranted: Boolean },
   controller: async (model) => {
     const self = model;
-    const result = await getFromStore('EPL', 'team');
+    const [followedTeams, notification] = await Promise.all([
+      getFromStore('EPL', 'team'),
+      idbKeyVal.get('notify'),
+    ]);
 
-    self.following = result;
+    self.following = followedTeams;
+    if (notification) self.isGranted = notification;
   },
   view: (model, loading) => {
     let settingsHTML;
@@ -57,7 +61,7 @@ addPageContents({
 
     return { contents: `${settingsHTML}${followedTeamsHTML}` };
   },
-  events: () => {
+  events: (model) => {
     const unfollowButtons = document.querySelectorAll('.btn-follow');
     const pushCheckbox = document.querySelector('input[id="push-settings"]');
     const isPushSupported = 'Notification' in window && 'PushManager' in window;
@@ -82,9 +86,7 @@ addPageContents({
     };
 
     const initSwitchState = async () => {
-      const userConsent = await initNotificationPermission();
-
-      if (userConsent === 'granted') {
+      if (model.isGranted === true) {
         pushCheckbox.checked = true;
       } else {
         pushCheckbox.checked = false;
@@ -97,6 +99,7 @@ addPageContents({
       if (userConsent === 'granted') {
         if (pushCheckbox.checked) {
           subscribePushNotification();
+          idbKeyVal.set('notify', true);
         } else {
           pushCheckbox.checked = true;
           M.toast({
@@ -106,12 +109,14 @@ addPageContents({
         }
       } else if (userConsent === 'denied') {
         pushCheckbox.checked = false;
+        idbKeyVal.set('notify', false);
         M.toast({
           html: "I'm not allowed to send push notifications. 😢",
           classes: 'red',
         });
       } else {
         pushCheckbox.checked = false;
+        idbKeyVal.set('notify', false);
         M.toast({
           html: 'You need to click allow to show notifications ⚠',
           classes: 'amber darken-3',
