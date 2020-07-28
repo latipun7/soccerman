@@ -3,7 +3,7 @@ import stickyButton from './templates/sticky-button.html';
 import matches from './templates/team-matches.html';
 import teamDetails from './templates/team.html';
 import { getTeamByID, getTeamMatches } from '../lib/api';
-import { isEmpty, template } from '../lib/utils';
+import { httpsWorkaround, isEmpty, template } from '../lib/utils';
 import { addPageContents, updateView } from '../lib/view';
 import {
   addOrUpdateToStore,
@@ -64,7 +64,7 @@ addPageContents({
 
       teamHTML = template(teamDetails, {
         id: model.teamDetail.id,
-        crestUrl: model.teamDetail.crestUrl,
+        crestUrl: httpsWorkaround(model.teamDetail.crestUrl),
         name: model.teamDetail.name,
         tla: model.teamDetail.tla,
         country: model.teamDetail.area.name,

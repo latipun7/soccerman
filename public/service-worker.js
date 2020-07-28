@@ -67,6 +67,13 @@ function staleWhileRevalidate(event) {
   const fetchNetwork = fetch(event.request);
   const fetchClone = fetchNetwork.then((response) => response.clone()).catch();
 
+  if (
+    event.request.cache === 'only-if-cached' &&
+    event.request.mode !== 'same-origin'
+  ) {
+    return;
+  }
+
   if (isAppShellReq === true) {
     event.respondWith(cache.then((response) => response || fetchNetwork));
   } else {

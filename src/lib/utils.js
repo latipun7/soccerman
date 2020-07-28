@@ -15,6 +15,10 @@ function template(string, map) {
   return processed;
 }
 
+function httpsWorkaround(url) {
+  return url.replace(/^http:\/\//i, 'https://');
+}
+
 function urlBase64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
@@ -28,4 +32,4 @@ function urlBase64ToUint8Array(base64String) {
   return outputArray;
 }
 
-export { isEmpty, template, urlBase64ToUint8Array };
+export { isEmpty, template, httpsWorkaround, urlBase64ToUint8Array };

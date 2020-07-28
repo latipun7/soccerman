@@ -3,7 +3,7 @@ import container from './templates/page-container.html';
 import settings from './templates/settings.html';
 import { getTeamByID } from '../lib/api';
 import { deleteFromStore, getFromStore } from '../lib/idb-utils';
-import { isEmpty, template } from '../lib/utils';
+import { httpsWorkaround, isEmpty, template } from '../lib/utils';
 import { addPageContents, updateView } from '../lib/view';
 import {
   initNotificationPermission,
@@ -41,7 +41,7 @@ addPageContents({
           ${prev}
           ${template(html, {
             id: current.id,
-            crestUrl: current.crestUrl,
+            crestUrl: httpsWorkaround(current.crestUrl),
             name: current.name,
             btnIcon: 'person_remove_alt_1',
           })}

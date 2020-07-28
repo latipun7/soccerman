@@ -1,7 +1,7 @@
 import html from './templates/home.html';
 import container from './templates/page-container.html';
 import { getPLStandings, getTeamByID } from '../lib/api';
-import { isEmpty, template } from '../lib/utils';
+import { httpsWorkaround, isEmpty, template } from '../lib/utils';
 import { addPageContents, updateView } from '../lib/view';
 import {
   addOrUpdateToStore,
@@ -28,20 +28,19 @@ addPageContents({
     if (isEmpty(model.standings)) {
       standingsHTML = '';
     } else {
-      const compared = model.standings.map((standing) => {
-        const findMatch =
-          model.following &&
-          model.following.find((db) => db.id === standing.team.id);
+      const lookup = {};
 
-        return { ...standing, isMatch: !!findMatch };
-      });
+      // check if teams in standing already followed in db
+      // add the result into new property in standings item object
+      for (const item of model.following) lookup[item.id] = item;
+      for (const item of model.standings) item.isMatch = item.team.id in lookup;
 
-      standingsHTML = compared.reduce(
+      standingsHTML = model.standings.reduce(
         (prev, current) => `
           ${prev}
           ${template(html, {
             id: current.team.id,
-            crestUrl: current.team.crestUrl,
+            crestUrl: httpsWorkaround(current.team.crestUrl),
             name: current.team.name,
             points: current.points,
             followed: current.isMatch,
