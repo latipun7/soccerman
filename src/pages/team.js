@@ -33,6 +33,7 @@ addPageContents({
 
     if (isEmpty(model.teamDetail)) {
       teamHTML = '';
+      buttonHTML = '';
     } else {
       if (isEmpty(model.teamMatches.matches)) {
         teamMatchesHTML = 'No scheduled match 🙅🏻‍♀️';
@@ -83,7 +84,7 @@ addPageContents({
       content: loading || teamHTML,
     });
 
-    return { contents: `${containerHTML}`, outside: `${buttonHTML}` };
+    return { contents: `${containerHTML}${buttonHTML}` };
   },
   events: (model) => {
     const btnFollow = document.querySelector('.btn-large.btn');

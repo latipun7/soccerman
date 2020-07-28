@@ -60,7 +60,7 @@ addPageContents({
       content: loading || standingsHTML,
     });
 
-    return { contents: `${containerHTML}`, outside: '' };
+    return { contents: `${containerHTML}` };
   },
   events: () => {
     const buttons = document.querySelectorAll('.btn-follow');

@@ -1,5 +1,6 @@
 import html from './templates/dashboard.html';
 import container from './templates/page-container.html';
+import settings from './templates/settings.html';
 import { getTeamByID } from '../lib/api';
 import { deleteFromStore, getFromStore } from '../lib/indexedDB';
 import { isEmpty, template } from '../lib/utils';
@@ -35,12 +36,17 @@ addPageContents({
       );
     }
 
-    const containerHTML = template(container, {
+    const followedTeamsHTML = template(container, {
       title: 'Followed Teams',
       content: loading || dashboardHTML,
     });
 
-    return { contents: `${containerHTML}`, outside: '' };
+    const settingsHTML = template(container, {
+      title: 'Settings',
+      content: settings,
+    });
+
+    return { contents: `${settingsHTML}${followedTeamsHTML}` };
   },
   events: () => {
     const buttons = document.querySelectorAll('.btn-follow');
