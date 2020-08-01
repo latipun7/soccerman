@@ -4,11 +4,15 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import postcssPresetEnv from 'postcss-preset-env';
 import TerserPlugin from 'terser-webpack-plugin';
-import { globalStyleDir, publicDir, srcDir } from './paths';
+import { buildDir, globalStyleDir, publicDir, srcDir } from './paths';
 
 const prod = {
   mode: 'production',
   devtool: 'nosources-source-map',
+  output: {
+    path: buildDir,
+    filename: 'scripts/[name]-[contenthash:8].js',
+  },
   optimization: {
     minimizer: [
       new TerserPlugin({ cache: true, sourceMap: true }),
@@ -95,6 +99,11 @@ const prod = {
       },
     ],
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'styles/[name]-[contenthash:8].css',
+    }),
+  ],
 };
 
 export default prod;

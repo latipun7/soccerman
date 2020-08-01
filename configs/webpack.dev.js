@@ -1,20 +1,19 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import postcssPresetEnv from 'postcss-preset-env';
-import { globalStyleDir } from './paths';
+import { buildDir, globalStyleDir } from './paths';
 
 const dev = {
   mode: 'development',
   devtool: 'source-map',
+  output: {
+    path: buildDir,
+    filename: 'scripts/[name].js',
+  },
   devServer: {
     open: true,
     hot: true,
     overlay: { errors: true, warnings: true },
     writeToDisk: true,
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
   },
   module: {
     rules: [
@@ -50,6 +49,11 @@ const dev = {
       },
     ],
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'styles/[name].css',
+    }),
+  ],
 };
 
 export default dev;

@@ -16,6 +16,7 @@ function template(string, map) {
 }
 
 function httpsWorkaround(url) {
+  if (isEmpty(url)) return '';
   return url.replace(/^http:\/\//i, 'https://');
 }
 

@@ -1,17 +1,13 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import WorkboxPlugin from 'workbox-webpack-plugin';
 import { buildDir, publicDir } from './paths';
 
 const common = {
   entry: {
     materialize: './src/materialize.js',
     index: './src/index.js',
-  },
-  output: {
-    path: buildDir,
-    filename: 'scripts/[name].js',
   },
   module: {
     rules: [
@@ -44,8 +40,9 @@ const common = {
       scriptLoading: 'defer',
       cache: false,
     }),
-    new MiniCssExtractPlugin({
-      filename: 'styles/[name].css',
+    new WorkboxPlugin.InjectManifest({
+      swSrc: './configs/sw.config.js',
+      swDest: 'service-worker.js',
     }),
   ],
 };

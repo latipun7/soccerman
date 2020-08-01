@@ -70,6 +70,8 @@ addPageContents({
         const { followed } = event.currentTarget.dataset;
         const result = await getTeamByID(id);
 
+        if (isEmpty(result)) throw new Error();
+
         if (followed === 'true') {
           await deleteFromStore(result.id, 'EPL', 'team');
           await updateView(true);

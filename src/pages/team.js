@@ -120,11 +120,11 @@ addPageContents({
     };
 
     const init = () => {
-      btnFollow.addEventListener('click', onClick);
+      if (btnFollow) btnFollow.addEventListener('click', onClick);
     };
 
     const teardown = () => {
-      btnFollow.removeEventListener('click', onClick);
+      if (btnFollow) btnFollow.removeEventListener('click', onClick);
     };
 
     return { init, teardown };
