@@ -1,16 +1,10 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://api.football-data.org/v2';
-const options = {
-  headers: { 'X-Auth-Token': '6a66976fba4c43568ac32af323de8814' },
-};
+const BASE_URL = 'https://api.ruppy.io/football';
 
 async function getPLStandings() {
   try {
-    const { data } = await axios.get(
-      `${BASE_URL}/competitions/PL/standings`,
-      options
-    );
+    const { data } = await axios.get(`${BASE_URL}/epl-standings`);
     return data;
   } catch (error) {
     return error;
@@ -19,7 +13,7 @@ async function getPLStandings() {
 
 async function getTeamByID(id) {
   try {
-    const { data } = await axios.get(`${BASE_URL}/teams/${id}`, options);
+    const { data } = await axios.get(`${BASE_URL}/teams/${id}`);
     return data;
   } catch (error) {
     return error;
@@ -28,10 +22,7 @@ async function getTeamByID(id) {
 
 async function getTeamMatches(id) {
   try {
-    const { data } = await axios.get(
-      `${BASE_URL}/teams/${id}/matches?status=SCHEDULED`,
-      options
-    );
+    const { data } = await axios.get(`${BASE_URL}/teams/${id}/matches`);
     return data;
   } catch (error) {
     return error;
