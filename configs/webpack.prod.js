@@ -12,6 +12,7 @@ const prod = {
   output: {
     path: buildDir,
     filename: 'scripts/[name]-[contenthash:8].js',
+    publicPath: '/soccerman/',
   },
   optimization: {
     minimizer: [
