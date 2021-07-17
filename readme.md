@@ -10,7 +10,7 @@
 
 This project is my personal Progressive Web Application for showing English Premier League standings. It contains showing the details of the team and could add the team to favorite.
 
-## Getting Started for Contribution
+## Getting Started for Contributing
 
 Getting up and running is easy.
 
