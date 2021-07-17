@@ -3,7 +3,7 @@ import axios from 'axios';
 const options = { responseType: 'text' };
 
 async function loadNavListItems() {
-  const { data } = await axios.get('/nav-items.html', options);
+  const { data } = await axios.get('nav-items.html', options);
   const linkElements = document.querySelectorAll(
     '.topnav, .sidenav, .footer-nav'
   );
