@@ -20,7 +20,7 @@
     "@babel/runtime": "^7.10.5",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "idb": "^5.0.4",
+    "idb": "^5.0.8",
     "materialize-css": "^1.0.0"
   },
   "devDependencies": {
