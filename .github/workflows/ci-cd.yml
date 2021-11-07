@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-
+    name: Check and Build 👷‍♂️
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -45,6 +45,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
+    steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.4.0
 
