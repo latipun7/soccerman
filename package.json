@@ -32,7 +32,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.3",
     "css-loader": "^3.6.0",
-    "cssnano": "^4.1.10",
+    "cssnano": "^4.1.11",
     "eslint": "^7.5.0",
     "eslint-config-ruppy-node": "^1.1.5",
     "eslint-plugin-import": "^2.22.0",
