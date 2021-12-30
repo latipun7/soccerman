@@ -14,7 +14,8 @@
     "build:webpack": "webpack --env.mode=production",
     "dev": "webpack-dev-server --env.mode=development",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-    "format": "prettier --check ."
+    "format": "prettier --check .",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@babel/runtime": "^7.16.3",
@@ -65,16 +66,11 @@
   "browserslist": [
     "defaults"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
+    "**/*.{js,cjs,mjs,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write"
     ],
-    "*.{html,json,sass,scss}": "prettier --write"
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
