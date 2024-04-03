@@ -32,7 +32,7 @@
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^6.4.1",
-    "css-loader": "^3.6.0",
+    "css-loader": "^6.11.0",
     "cssnano": "^4.1.11",
     "eslint": "^7.32.0",
     "eslint-config-ruppy-node": "^1.7.0",
